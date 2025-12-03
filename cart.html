@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Cart</title>
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+
+    <!-- NAVBAR -->
+    <nav class="flex items-center justify-between bg-white shadow px-6 py-4">
+        <h1 class="text-xl font-bold">QuickBite</h1>
+
+        <div class="relative">
+            <button class="relative">
+                <span class="text-lg font-semibold">Cart</span>
+
+                <!-- CART BADGE -->
+                <span id="cart-count-badge"
+                      class="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full hidden">
+                    0
+                </span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN CART CONTAINER -->
+    <div class="max-w-2xl mx-auto mt-6 p-4 bg-white rounded shadow">
+
+        <h2 class="text-lg font-bold mb-4">Your Cart</h2>
+
+        <!-- CART ITEMS -->
+        <div id="cart-items-list" class="space-y-3"></div>
+
+        <!-- TOTAL -->
+        <div class="flex justify-between items-center mt-6 border-t pt-4">
+            <p class="text-lg font-semibold">Total:</p>
+            <p id="cart-total" class="text-xl font-bold">₱0.00</p>
+        </div>
+
+        <!-- CHECKOUT BUTTON (MUST MATCH cart.js) -->
+        <button id="checkout-button"
+                class="mt-4 w-full bg-green-600 text-white py-3 rounded-lg font-semibold disabled:bg-gray-400"
+                disabled>
+            Checkout
+        </button>
+    </div>
+
+
+    <!-- CONFIRMATION MODAL -->
+    <div id="confirm-modal"
+         class="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center hidden">
+
+        <div class="bg-white p-6 rounded-lg shadow-lg max-w-sm w-full text-center">
+
+            <h3 class="text-lg font-bold mb-3">Confirm Your Order</h3>
+            <p class="text-gray-600 mb-6">Do you actually want to place this order?</p>
+
+            <div class="flex justify-center space-x-4">
+                <!-- YES -->
+                <button id="confirm-yes"
+                        class="bg-green-600 text-white px-4 py-2 rounded-lg font-semibold">
+                    Yes
+                </button>
+
+                <!-- NO -->
+                <button id="confirm-no"
+                        class="bg-gray-300 text-gray-700 px-4 py-2 rounded-lg font-semibold">
+                    No
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- IMPORT cart.js -->
+    <script type="module">
+        import { handleCheckout, renderCart } from ".\js\cart.js";
+
+        const checkoutBtn = document.getElementById("checkout-button");
+        const confirmModal = document.getElementById("confirm-modal");
+        const confirmYes = document.getElementById("confirm-yes");
+        const confirmNo = document.getElementById("confirm-no");
+
+        // Load cart
+        renderCart();
+
+        // Open modal
+        checkoutBtn.addEventListener("click", () => {
+            confirmModal.classList.remove("hidden");
+        });
+
+        // No → close modal
+        confirmNo.addEventListener("click", () => {
+            confirmModal.classList.add("hidden");
+        });
+
+        // Yes → checkout
+        confirmYes.addEventListener("click", () => {
+            confirmModal.classList.add("hidden");
+            handleCheckout();
+        });
+    </script>
+
+</body>
+</html>

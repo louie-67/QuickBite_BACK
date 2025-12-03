@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery | Login</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* (Style section remains the same) */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            /* 🍕 FOOD-THEMED BACKGROUND */
+            background: linear-gradient(135deg, #ffb85c, #ff6a4d);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* 🍟 Floating Food Icons */
+        body::before, body::after {
+            content: "🍕";
+            font-size: 80px;
+            opacity: 0.15;
+            position: absolute;
+            animation: float 6s infinite alternate ease-in-out;
+        }
+
+        body::before {
+            top: 10%;
+            left: 5%;
+        }
+
+        body::after {
+            bottom: 10%;
+            right: 5%;
+            content: "🍔";
+        }
+
+        @keyframes float {
+            from { transform: translateY(0); }
+            to { transform: translateY(25px); }
+        }
+
+        .container {
+            margin: 0 15px;
+            animation: fadeIn 0.6s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-box {
+            width: 100%;
+            max-width: 470px;
+            padding: 35px;
+            background: #fff8f0;
+            border-radius: 18px;
+
+            /* 🍗 Warm yummy shadow */
+            box-shadow: 0 0 20px rgba(255, 126, 67, 0.25);
+            display: none;
+            transition: 0.3s ease-in-out;
+        }
+
+        .form-box.active {
+            display: block;
+        }
+
+        /* 🍔 Hover Glow */
+        .form-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(255, 103, 47, 0.35);
+        }
+
+        h2 {
+            font-size: 32px;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: #ff5722;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 13px;
+            background: #fff3e6;
+            border-radius: 10px;
+            border: 1px solid #ffb88a;
+            outline: none;
+            font-size: 15px;
+            margin-bottom: 18px;
+            transition: 0.3s ease;
+        }
+
+        /* 🥤 Input Hover */
+        input:hover, select:hover {
+            background: #ffe7d1;
+        }
+
+        /* 🍩 Focus Glow */
+        input:focus, select:focus {
+            border-color: #ff6a34;
+            box-shadow: 0 0 8px rgba(255, 102, 51, 0.4);
+            background: #fff;
+        }
+
+        /* 🍕 Button */
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #ff6a34;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.25s ease;
+            font-weight: 600;
+        }
+
+        /* 🍔 Button Hover */
+        button:hover {
+            background: #ff4f1a;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(255, 72, 0, 0.3);
+        }
+
+        /* Press animation */
+        button:active {
+            transform: scale(0.97);
+        }
+
+        p {
+            font-size: 14px;
+            text-align: center;
+            margin-top: 12px;
+            color: #444;
+        }
+
+        p a {
+            color: #ff4f1a;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <div class="form-box active" id="log-in-form">
+            <form action="login.php" method="POST">
+                <h2>Welcome Back 👋</h2>
+                <input type="email" name="email" placeholder="🍕 Email" required>
+                <input type="password" name="password" placeholder="🔐 Password" required>
+                <button type="submit">Log In</button>
+
+                <p>Not registered?  
+                    <a href="#" onclick="showForm('register-form')">Create an account</a>
+                </p>
+            </form>
+        </div>
+
+        <div class="form-box" id="register-form">
+            <form action="signup.php" method="POST">
+                <h2>Create Account 🍔</h2>
+                 <input type="email" name="email" placeholder="🍕 Email" required>
+                <input type="password" name="password" placeholder="🔐 Password" required>
+
+                <button type="submit">Register</button>
+
+                <p>Already have an account?  
+                    <a href="#" onclick="showForm('log-in-form')">Login</a>
+                </p>
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        function showForm(formId) {
+            document.querySelectorAll('.form-box').forEach(f => f.classList.remove('active'));
+            document.getElementById(formId).classList.add('active');
+        }
+    </script>
+
+</body>
+
+</html>
